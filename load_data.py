@@ -1,5 +1,6 @@
 
 import os
+import itertools
 from pathlib import Path
 
 import numpy as np
@@ -8,6 +9,7 @@ import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 
 LABEL_MAPPER = {'Cars': 0, 'Drones': 1, 'People': 2}
+INV_LABEL_MAPPER = {v: k for k, v in LABEL_MAPPER.items()}
 
 
 def get_data_for_label(label, data_dir_path: str):
@@ -33,6 +35,24 @@ def main():
     y = y_cars + y_drones + y_people
     X, y = np.array(X), np.array(y)
 
+    fig, ax = plt.subplots()
+    ax.bar(['Cars', 'Drones', 'People'], [len(x) for x in [y_cars, y_drones, y_people]])
+    ax.set_title('Class distribution')
+    plt.tight_layout()
+    # plt.savefig("./figures/class_distribution.png", dpi=150)
+    plt.show()
+
+    fig, axs = plt.subplots(3, 3, figsize=(10, 10))
+    for i, j in itertools.product(range(3), range(3)):
+        index = np.random.randint(0, len(y)-1)
+        img = axs[i, j].imshow(X[index], cmap='jet', vmin=-140, vmax=-70)
+        axs[i, j].set_title(f'{INV_LABEL_MAPPER[y[index]]}')
+        axs[i, j].axis('tight')
+
+    plt.tight_layout()
+    # plt.savefig("./figures/class_examples.png", dpi=150)
+    plt.show()
+    
 if __name__ == '__main__':
     load_dotenv()
 
