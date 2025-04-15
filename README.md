@@ -15,5 +15,5 @@ Loaded 5065 examples for label Drones encoded with 1
 Loaded 6700 examples for label People encoded with 2
 ```
 
-# Blog reference
+# Reference blog
 - https://blogmljt.netlify.app/posts/radar-doppler/
