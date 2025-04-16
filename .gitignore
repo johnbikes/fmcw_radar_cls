@@ -1,2 +1,5 @@
 .env
 .venv/
+
+# training plots
+*_results.png
